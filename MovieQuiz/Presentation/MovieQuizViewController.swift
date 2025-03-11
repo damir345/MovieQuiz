@@ -1,17 +1,5 @@
 import UIKit
 
-//Элементы кода расположил в соответвстии с рекомендациями:
-
-// 1. Порядок свойств и методов в классе.
-// 2. Константы и переменные (включая @IBOutlet, @State, @published и другие).
-// 3. Инициализаторы (init) (если есть).
-// 4. Жизненный цикл (viewDidLoad, viewWillAppear и т. д.).
-// 5. Настройки UI и вспомогательные методы (setupUI(), bindViewModel() и т. д.).
-// 6. Обработчики действий (@IBAction, кнопки и жесты).
-// 7. Методы делегатов и источников данных (UITableViewDelegate, UICollectionViewDataSource и т. д.).
-// 8. Приватные вспомогательные методы.
-// 9. Деинициализатор (deinit).
-
 final class MovieQuizViewController: UIViewController {
     // MARK: - Свойства и переменные
     @IBOutlet weak private var label: UILabel!
@@ -148,11 +136,13 @@ final class MovieQuizViewController: UIViewController {
     // приватный метод, который меняет цвет рамки
     // принимает на вход булевое значение и ничего не возвращает
     private func showAnswerResult(isCorrect: Bool) {
-       // метод красит рамку
+        //выключение кнопок до началы смены вопроса
+        buttonYes.isEnabled = false
+        buttonNo.isEnabled = false
         if isCorrect { // 1
                 correctAnswers += 1 // 2
             }
-        
+        // метод красит рамку
         imageView.layer.masksToBounds = true // 1
         imageView.layer.borderWidth = 8 // 2
         imageView.layer.cornerRadius = 6
@@ -162,6 +152,9 @@ final class MovieQuizViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             // код, который мы хотим вызвать через 1 секунду
            self.showNextQuestionOrResults()
+            //включение кнопок
+            self.buttonYes.isEnabled = true
+            self.buttonNo.isEnabled = true
         }
     }
     
