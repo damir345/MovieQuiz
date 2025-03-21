@@ -45,12 +45,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory.requestNextQuestion()
         
         label.font = UIFont(name: "YSDisplay-Medium", size: 20)
-        counterLabel.font = UIFont(name: "YPDisplay-Medium", size: 20)
+        counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
         textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
         buttonYes.tintColor = UIColor(named: "YP Black")
         buttonNo.tintColor = UIColor(named: "YP Black")
         buttonNo.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
         buttonYes.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 8
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderColor = UIColor.clear.cgColor
     }
     
     // MARK: - QuestionFactoryDelegate
@@ -147,10 +151,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         if isCorrect { // 1
             correctAnswers += 1 // 2
         }
-        // метод красит рамку
-        imageView.layer.masksToBounds = true // 1
-        imageView.layer.borderWidth = 8 // 2
-        imageView.layer.cornerRadius = 6
+        
         imageView.layer.borderColor = isCorrect ? UIColor(named:"YP Green")?.cgColor : UIColor(named: "YP Red")?.cgColor
         // С помощью тернарного условного оператора красим рамку в нужный цвет в зависимости от ответа пользователя.
         // запускаем задачу через 1 секунду c помощью диспетчера задач
