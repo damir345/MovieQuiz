@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -92,23 +92,26 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="Zb0-aJ-jFd" firstAttribute="centerX" secondItem="pHI-aD-c01" secondAttribute="centerX" id="dvM-uf-ZGM"/>
-                                </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Tz9-S4-LWF">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
+                            <constraint firstItem="Tz9-S4-LWF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Ma-r1-sGv"/>
                             <constraint firstItem="ygM-JO-1ZE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Aao-c7-Am8"/>
                             <constraint firstItem="pHI-aD-c01" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Atq-FX-SWk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pHI-aD-c01" secondAttribute="trailing" constant="20" id="NAC-xi-xma"/>
                             <constraint firstItem="gra-97-Pes" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Va9-oA-meB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pHI-aD-c01" secondAttribute="bottom" id="ZRk-qR-DEl"/>
+                            <constraint firstItem="Tz9-S4-LWF" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Zcx-Z8-RFe"/>
                             <constraint firstItem="pHI-aD-c01" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="oRg-f4-WLD"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Tz9-S4-LWF" id="vOh-Uz-jlX"/>
                         <outlet property="buttonNo" destination="WS6-9c-RBA" id="ecv-go-2du"/>
                         <outlet property="buttonYes" destination="edE-HY-78k" id="a9G-HM-iDW"/>
                         <outlet property="counterLabel" destination="zyM-F8-gyw" id="KRK-kN-2t8"/>
