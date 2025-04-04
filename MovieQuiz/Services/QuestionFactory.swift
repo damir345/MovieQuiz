@@ -59,24 +59,19 @@ final class QuestionFactory: QuestionFactoryProtocol {
             guard let movie = self.movies[safe: index] else { return }
 
             var imageData = Data()
-            if let imageURL = URL(string: movie.resizedImageURL.absoluteString) {
-                do {
-                    imageData = try Data(contentsOf: imageURL)
-                } catch {
-                    print("Failed to load image from URL:", imageURL)
-                    imageData = Data()
-                }
+            do {
+                imageData = try Data(contentsOf: movie.resizedImageURL)
+            } catch {
+                print("Failed to load image from URL:", movie.resizedImageURL)
             }
 
             let rating = Float(movie.rating) ?? 0
-            
-            // Определяем случайный порог рейтинга на основе существующих значений
+
             let ratingsRange = self.movies.compactMap { Float($0.rating) }
             let minRating = ratingsRange.min() ?? 0
             let maxRating = ratingsRange.max() ?? 10
             let threshold = Float.random(in: minRating...maxRating)
 
-            // Выбираем тип сравнения: "больше" или "меньше"
             let isGreaterComparison = Bool.random()
             let comparisonText = isGreaterComparison ? "больше" : "меньше"
             let correctAnswer = isGreaterComparison ? (rating > threshold) : (rating < threshold)
@@ -85,11 +80,14 @@ final class QuestionFactory: QuestionFactoryProtocol {
 
             let question = QuizQuestion(image: imageData, text: text, correctAnswer: correctAnswer)
 
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 self.delegate?.didReceiveNextQuestion(question: question)
             }
         }
     }
+
+
 
 
 }
