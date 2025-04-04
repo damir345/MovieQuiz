@@ -19,7 +19,7 @@ struct NetworkClient {
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             // Проверяем, пришла ли ошибка
-            if let error = error {
+            if let error {
                 handler(.failure(error))
                 return
             }
@@ -32,7 +32,7 @@ struct NetworkClient {
             }
             
             // Возвращаем данные
-            guard let data = data else { return }
+            guard let data else { return }
             handler(.success(data))
         }
         

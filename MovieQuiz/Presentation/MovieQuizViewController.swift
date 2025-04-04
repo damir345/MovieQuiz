@@ -17,7 +17,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private let questionsAmount: Int = 10
     
-//    private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
     private lazy var questionFactory: QuestionFactoryProtocol = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
     
     private var alertPresenter: AlertPresenter?
@@ -43,12 +42,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 
         showLoadingIndicator()
         questionFactory.loadData()
-//        let questionFactory = QuestionFactory()
-//        questionFactory.setup(delegate: self)
-//        self.questionFactory = questionFactory
-//        
-//        // Фабрика возвращает опционал; прежде чем пытаться отобразить вопрос, нужно убедиться, что он есть. Поэтому мы распаковываем его, и если фабрика возвращает не nil — начинаем отображать. Заменим строки кода конструкцией:
-//        questionFactory.requestNextQuestion()
         
         label.font = UIFont(name: "YSDisplay-Medium", size: 20)
         counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
@@ -74,17 +67,28 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let viewModel = convert(model: question)
         
         DispatchQueue.main.async { [weak self] in
+            self?.hideLoadingIndicator()
             self?.show(quiz: viewModel)
         }
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true // скрываем индикатор загрузки
+        activityIndicator.isHidden = true
         questionFactory.requestNextQuestion()
     }
     
     func didFailToLoadData(with error: Error) {
-        showNetworkError(message: error.localizedDescription) // возьмём в качестве сообщения описание ошибки
+        showNetworkError(message: error.localizedDescription)
+    }
+    
+    func showLoadingIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+
+    func hideLoadingIndicator() {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
     }
     
     // MARK: - Обработчики действий
@@ -199,18 +203,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             show(quiz: viewModel) // 3
         } else {
             currentQuestionIndex += 1
+            showLoadingIndicator()
             self.questionFactory.requestNextQuestion()
         }
-    }
-    
-    private func showLoadingIndicator() {
-        activityIndicator.isHidden = false // говорим, что индикатор загрузки не скрыт
-        activityIndicator.startAnimating() // включаем анимацию
-    }
-    
-    private func hideLoadingIndicator() {
-        activityIndicator.isHidden = true // Скрываем индикатор
-        activityIndicator.stopAnimating() // Останавливаем анимацию
     }
 
     private func showNetworkError(message: String) {
@@ -219,7 +214,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let model = AlertModel(title: "Ошибка",
                                message: message,
                                buttonText: "Попробовать еще раз") { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
