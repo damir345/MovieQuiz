@@ -28,6 +28,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter.viewController = self
+        
         // Инициализация StatisticService
         statisticService = StatisticServiceImplementation()
         
@@ -91,21 +93,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     // MARK: - Обработчики действий
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = true // 2
-        
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer) // 3
+        presenter.currentQuestion = currentQuestion
+        presenter.yesButtonClicked()
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = false // 2
-        
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer) // 3
+        presenter.currentQuestion = currentQuestion
+        presenter.noButtonClicked()
     }
     
     // MARK: - Приватные вспомогательные методы
@@ -154,7 +148,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     // приватный метод, который меняет цвет рамки
     // принимает на вход булевое значение и ничего не возвращает
-    private func showAnswerResult(isCorrect: Bool) {
+    func showAnswerResult(isCorrect: Bool) {
         //выключение кнопок до началы смены вопроса
         buttonYes.isEnabled = false
         buttonNo.isEnabled = false
