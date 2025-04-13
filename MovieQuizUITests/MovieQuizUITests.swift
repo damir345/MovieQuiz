@@ -42,12 +42,6 @@ final class MovieQuizUITests: XCTestCase {
         
         let indexLabel = app.staticTexts["Index"]
         
-//        XCTAssertTrue(firstPoster.exists)
-//        
-//        XCTAssertTrue(secondPoster.exists)
-        
-//        XCTAssertFalse(firstPoster == secondPoster) //check that posters are different
-        
         XCTAssertNotEqual(firstPosterData, secondPosterData)
         
         XCTAssertEqual(indexLabel.label, "2/10")
