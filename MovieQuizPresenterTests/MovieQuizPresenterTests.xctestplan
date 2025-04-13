@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "A9B9CFA2-F0A4-4044-92BF-5A7A5278DFD8",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MovieQuiz.xcodeproj",
+        "identifier" : "F4F7B18C2DAAB15300509AAE",
+        "name" : "MovieQuizPresenterTests"
+      }
+    }
+  ],
+  "version" : 1
+}
